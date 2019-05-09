@@ -17,3 +17,6 @@ docker build -t simple-daemon .
 docker run simple-daemon
 # should print Hello World
 ```
+
+## Docker images for .NET Core
+[Documentation on MS Docs](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/docker/building-net-docker-images?view=aspnetcore-2.2)
