@@ -1,9 +1,10 @@
-FROM microsoft/dotnet:2.1-sdk AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2-alpine3.9 AS build
 WORKDIR /app
  
 COPY . ./dotnetapp/
 WORKDIR /app/dotnetapp
-RUN dotnet restore *.sln
+RUN dotnet clean
+#RUN dotnet restore *.sln
  
 WORKDIR /app/
 COPY . ./
@@ -15,7 +16,7 @@ WORKDIR /app/tests
 COPY --from=build /app/dotnetapp/src/Daemon.Core.Test/*.* ./
 RUN dotnet test --logger:trx
  
-FROM microsoft/dotnet:2.1-runtime AS runtime
+FROM mcr.microsoft.com/dotnet/core/runtime:2.2.4-alpine3.9 AS runtime
 WORKDIR /app
 COPY --from=build /app/dotnetapp/src/Daemon.Core/out ./
 ENTRYPOINT ["dotnet", "Daemon.Core.dll"]
